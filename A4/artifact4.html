@@ -2,24 +2,31 @@
 <html>   
    <head>
       <title>Form Validation</title>      
-      <script src="A4.js" type="text/javascript"></script>
-      <!--
-            // Form validation code will come here.
-         //-->
-      </script>
-	 <link rel="stylesheet" href="A4style.css" />
+      
+	 <style type ="text/css" />
+     
+     
+#errorMessages{
+color:red;
+}
+
+     </style>
    </head>
    
    <body>
-      <form action="A4.js"  id="myform" onsubmit="return validateForm();">
+
+<form action="" id="myform" >
 <p>
 	<label for='FirstName'>First Name:</label>
 	<input type="text" id="FirstName" name="FirstName" />
+    
 </p>
+<div id="errorMessages"></div>
 <p>
 	<label for='LastName'>Last Name:</label>
 	<input type="text" id="LastName" name="LastName" />
 </p>
+<div id="errorMessages"></div>
 <p>
 	<label for='Email'>Email:</label>
 	<input type="text" id="Email" name="Email" />
@@ -76,7 +83,7 @@
  frmvalidator.addValidation("Email","req");
  frmvalidator.addValidation("Email","email");
 
- frmvalidator.addValidation("Phone","maxlen=50");
+ frmvalidator.addValidation("Phone","maxlen=15");
  frmvalidator.addValidation("Phone","numeric");
  
  frmvalidator.addValidation("Username","maxlen=12");
@@ -86,5 +93,63 @@
  frmvalidator.addValidation("City","maxlen=50");
  frmvalidator.addValidation("State","maxlen=2");
  frmvalidator.addValidation("Country","dontselect=000");
+ 
+
+//1) Create variable
+var validFirstname=false;
+//2) read value from HTML
+var firstname = document.getElementById("firstname").value;
+//3) Do validation
+if (firstname==="null" || firstname==="" || firstname.length > 20)
+   { errorMessages += "<p>The firstname is required and cannot be greater than 20 characters</p>";}
+else
+   validFirstname = true;
+//4) Send error message to HMTL
+document.getElementById("errorMessages").innerHTML = errorMessages;
+//5) return status of each field
+return (validFirstname);
+
+
+var validLastname=false;
+var validLastname = document.getElementById("lastname").value;
+if (lastname==="null" || lastname==="" || lastname.length > 50)
+   { errorMessages += "<p>The firstname is required and cannot be greater than 50 characters</p>";}
+else
+   validFirstname = true;
+document.getElementById("errorMessages").innerHTML = errorMessages;
+return (validFirstname && validLastname);
+
+
+var userEmail = document.getElementById("email").value;
+var atpos = userEmail.indexOf("@");
+var dotpos = userEmail.lastIndexOf(".");
+if (atpos< 1 || dotpos<atpos+2 || dotpos+2>=userEmail.length)
+ {
+            alert("Please enter correct email ID")
+            document.myForm.Email.focus() ;
+            return false;
+         }
+         else
+         	return( true );
+
+
+var phone = document.getElementById("phone").value;
+if (isNaN(phone) || phone.lenght >15 || phone===null || phone==="")
+{errorMessages = "<p>Invalid phone number </p>";}
+else
+  return (true); 
+
+var country = document.getElementById("country").value;
+if (country === "USA)
+{artlert("Please enter the zipcode")
+var zipcode = document.getElementById("zipcode").value;
+if (isNan(zipcode) || zipcode.length >5 || zipcode===null || zipcode==="")
+{errorMessages = "<p>Invalid zipcode </p>";}
+else
+  return (true);}
+// validate Zipcode according to the rules
+//Zipcode is OK. For example: validZipcode = true;
 
 </script>
+</body>
+</html>
